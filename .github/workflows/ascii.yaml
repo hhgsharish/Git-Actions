@@ -1,7 +1,7 @@
 name: Generate ascii
 
 on:
-  push:
+  push
 
 jobs: 
   ascii_job:
