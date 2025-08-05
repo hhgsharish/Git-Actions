@@ -19,3 +19,12 @@ jobs:
 
     - name: Cat the file 
       run: cat dragon.txt 
+  Test_job2:
+    needs: ascii_job
+    runs-on: ubuntu-latest
+    steps: 
+    - name: Sleep and cat
+      run: | 
+        sleep 10
+        ls -ltr
+
