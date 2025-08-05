@@ -1,0 +1,21 @@
+name: Generate ascii
+
+on:
+  push:
+
+jobs: 
+  ascii_job:
+    runs-on: ubuntu-latest
+
+    steps: 
+    - name: Checkout 
+      uses: actions/checkout@v4.2.2
+
+    - name: install cowsway
+      run: sudo apt-get install cowsay -y 
+
+    - name: cowsay in action
+      run: cowsay -f dragon "Run for cover" >> dragon.txt 
+
+    - name: Cat the file 
+      run: cat dragon.txt 
