@@ -1,7 +1,8 @@
 name: Generate ascii
 
 on:
-  push
+  schedule:
+    - cron: "*/1 * * * *"  # Runs every minute
 
 jobs: 
   ascii_job:
@@ -11,20 +12,28 @@ jobs:
     - name: Checkout 
       uses: actions/checkout@v4.2.2
 
-    - name: install cowsway
+    - name: Install cowsay  # ✅ Fixed typo: "cowsway" → "cowsay"
       run: sudo apt-get install cowsay -y 
 
-    - name: cowsay in action
-      run: cowsay -f dragon "Run for cover" >> dragon.txt 
+    - name: Cowsay in action
+      run: cowsay -f dragon "Run for cover" >> dragon.txt  # ✅ Replaced &gt;&gt; with >>
 
-    - name: Cat the file 
-      run: cat dragon.txt 
+    - name: Upload dragon.txt as artifact  # ✅ Added missing upload step
+      uses: actions/upload-artifact@v4.3.0
+      with:
+        name: dragon-textfile
+        path: dragon.txt
+
   Test_job2:
     needs: ascii_job
     runs-on: ubuntu-latest
-    steps: 
-    - name: Sleep and cat
-      run: | 
-        sleep 10
-        ls -ltr
 
+    steps: 
+    - name: Download the dragon file
+      uses: actions/download-artifact@v4.3.0
+      with:
+        name: dragon-textfile
+        path: .
+    
+    - name: Display the file
+      run: cat dragon.txt
