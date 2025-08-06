@@ -1,8 +1,9 @@
 name: Generate ascii
 
 on:
-  schedule:
-    - cron: "*/1 * * * *"  # Runs every minute
+  workflow_dispatch:
+#  schedule:
+#    - cron: "*/1 * * * *"  # Runs every minute
 
 jobs: 
   ascii_job:
